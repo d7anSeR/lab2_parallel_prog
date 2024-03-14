@@ -90,16 +90,17 @@ void clearMemory(int** matrix, int rows) {
     delete[] matrix;
 }
 int** mulMatrix(int** matrix, int rows) {
+    int i, j, count;
     int** matrix_new = new int* [rows];
     for (int i = 0; i < rows; i++) {
         matrix_new[i] = new int[rows];
     }
 
-    #pragma omp parallel for shared(matrix, matrix_new, rows) private(i, count, j)
-    for (int i = 0; i < rows; i++) {
-        for (int count = 0; count < rows; count++) {
+#pragma omp parallel for shared(matrix, matrix_new) private(i, count, j)
+    for (i = 0; i < rows; i++) {
+        for (count = 0; count < rows; count++) {
             int sum = 0;
-            for (int j = 0; j < rows; j++) {
+            for (j = 0; j < rows; j++) {
                 sum += (matrix[i][j] * matrix[j][count]);
             }
             matrix_new[i][count] = sum;
