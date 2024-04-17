@@ -10,7 +10,7 @@
 
 С помощью стандарта __OpenMP__ (Open Multi-Processing)  было реализовано распараллеливание функции умножения матриц
 ```
-int** mulMatrix(int** matrix, int rows){
+int** mulMatrix(int** matrix, int rows){ //автоматически используется распараллелирование на два потока
     //...
     #pragma omp parallel for shared(matrix, matrix_new) private(i, count, j)
     for (i = 0; i < rows; i++) {
